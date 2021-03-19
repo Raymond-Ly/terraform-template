@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Lambda Deploy') {
+            steps {
+                dir('./resouces/lambda') {
+                    sh '''
+                        terraform init
+                        terraform plan
+                        terraform apply
+                    '''
+                }
+            }
+        }
+    }
+}

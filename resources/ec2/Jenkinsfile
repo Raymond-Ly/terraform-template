@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+
+    triggers {
+        cron('30 08 * * 1')
+    }
+
+    stages {
+        stage('EC2 Deploy') {
+            steps {
+                dir('./resouces/ec2') {
+                    sh '''
+                        terraform init
+                        terraform plan
+                        terraform apply
+                    '''
+                }
+            }
+        }
+    }
+}
